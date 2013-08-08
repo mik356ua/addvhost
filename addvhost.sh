@@ -85,8 +85,7 @@ if [[ -f "$VHOST_ROOT/$VHOST_NAME" ]]; then
     echo "Virtual host $VHOST_NAME already exists."
     exit
 fi
-echo $PROJECT_ROOT
-exit
+
 # create vhost config
 touch "$VHOST_ROOT/$VHOST_NAME"
 cat > "$VHOST_ROOT/$VHOST_NAME" <<EOL
