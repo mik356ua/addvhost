@@ -62,7 +62,11 @@ if [[ ! -z "$VHOST_NAME" ]]; then
     VHOST_URL="$VHOST_NAME.$USER_NAME.local"
 fi
 if [[ ! -z "$PROJECT_DIR" ]]; then
-    PROJECT_PATH="$PROJECT_DIR/$VHOST_NAME"
+    if [[ "$PROJECT_DIR" = */ ]]; then
+        PROJECT_PATH="$PROJECT_DIR$VHOST_NAME"
+    else
+        PROJECT_PATH="$PROJECT_DIR/$VHOST_NAME"
+    fi
 fi
 if [[ ! -z "$VHOST_DIR" ]]; then
     PROJECT_ROOT="$PROJECT_PATH/$VHOST_DIR"
@@ -81,7 +85,8 @@ if [[ -f "$VHOST_ROOT/$VHOST_NAME" ]]; then
     echo "Virtual host $VHOST_NAME already exists."
     exit
 fi
-
+echo $PROJECT_ROOT
+exit
 # create vhost config
 touch "$VHOST_ROOT/$VHOST_NAME"
 cat > "$VHOST_ROOT/$VHOST_NAME" <<EOL
