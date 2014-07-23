@@ -87,8 +87,8 @@ if [[ -f "$VHOST_ROOT/$VHOST_NAME" ]]; then
 fi
 
 # create vhost config
-touch "$VHOST_ROOT/$VHOST_NAME"
-cat > "$VHOST_ROOT/$VHOST_NAME" <<EOL
+touch "$VHOST_ROOT/$VHOST_NAME.conf"
+cat > "$VHOST_ROOT/$VHOST_NAME.conf" <<EOL
 <VirtualHost *:80>
     ServerAdmin $USER_NAME@$VHOST_URL
     ServerName $VHOST_URL
@@ -97,8 +97,7 @@ cat > "$VHOST_ROOT/$VHOST_NAME" <<EOL
     <Directory $PROJECT_ROOT/>
         Options Indexes FollowSymLinks MultiViews
         AllowOverride All
-        Order allow,deny
-        allow from all
+        Require all granted
     </Directory>
 
     ErrorLog \${APACHE_LOG_DIR}/$VHOST_NAME-error.log
